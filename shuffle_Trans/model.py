@@ -6,6 +6,7 @@ import torch.nn as nn
 
 import copy,math
 
+
 class MultiHeadedAttention(nn.Module):
     def __init__(self,embedding , head=8, dropout=0.1):
         super(MultiHeadedAttention, self).__init__()
@@ -25,7 +26,7 @@ class MultiHeadedAttention(nn.Module):
         value = self.linears[2](value).view(BN, -1, self.head, self.embed_cut).transpose(1, 2)
 
         embed_cut = query.size(3)
-        scores = torch.matmul(query, key.transpose(2, 3)) / math.sqrt(embed_cut)
+        scores = torch.matmul(query, key.transpose(2, 3))  # / math.sqrt(embed_cut)
         productAttention = torch.softmax(scores, dim=-1)
         self.attn = self.dropout(productAttention)
         output = torch.matmul(self.attn, value)
@@ -48,7 +49,7 @@ class TransformerEncoderBlock(nn.Module):
         if not self.emb_size:
             self.emb_size = int(H*W)
             self.create_model()
-        input = input.view(BN,C,int(H*W))
+        input = self.flatten(input)
 
         branch_MHA = input
         input = self.LayerNorm1(input)
@@ -61,7 +62,7 @@ class TransformerEncoderBlock(nn.Module):
         input = self.Dropout2(input)
         input += branch_MLP
 
-        output = input.view(BN,C,H,W)
+        output = self.linear_out(input).view(BN,C,H,W)
         return output
 
 
@@ -78,6 +79,9 @@ class TransformerEncoderBlock(nn.Module):
             nn.Linear(self.expansion * self.emb_size, self.emb_size),
         )
         self.Dropout2 = nn.Dropout(self.drop_p)
+
+        self.flatten = nn.Flatten(2)
+        self.linear_out = nn.Linear(self.emb_size, self.emb_size)
 
 
 
@@ -491,11 +495,18 @@ if __name__ == '__main__':
     model = shufflenet_v2_x1_0(10)
     # 注意长宽192这样的(64倍数)不行,得至少128倍数，
     # 可能是一共5次下采样(缩了32倍)，导致深层的W*H满足不了多头自注意力那W*H整除head(默认为8,调低可无视)
-    input = torch.randn(1, 3, 128, 128)
-    output = model(input)
-    print('input size {} output size {}'.format(input.size(),output.size()))
+    model_input = torch.randn(1, 3, 128, 128)
+    model_output = model(model_input)
+    print('TransShuffle input size {} output size {}'.format(model_input.size(),model_output.size()))
+    # 但是单纯搞个encoder的话就宽泛很多,只要W*H能把head整除就行
+    encoder_input = torch.randn(1,511,4,4)
+    encoder = TransformerEncoderBlock()
+    encoder_output = encoder(encoder_input)
+    print('TransEncoder input size {} output size {}'.format(encoder_input.size(), encoder_output.size()))
+
 
     from torch.utils.tensorboard import SummaryWriter
     writer = SummaryWriter()
-    writer.add_graph(model,input)
+    writer.add_graph(model,model_input)
+    writer.add_graph(encoder,encoder_input)
     writer.close()
