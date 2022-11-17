@@ -30,7 +30,3 @@ In order to save you some face, I won't disclose other info may open box.
 ## Please do not doubt that there is no conflict of interest at the end of the article ! 
 
 # Idiotic Ass Shan Fang !!!
-
-# Idiotic Ass Shan Fang !!!
-
-# Idiotic Ass Shan Fang !!!
