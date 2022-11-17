@@ -1,38 +1,36 @@
-# ShuffleNet_Attention_Extend
-We add attention mechanism come from Squeeze-and-Excitation and Selective Kernel to InvertedResidual block in shuffleNetV2.
+# The code for this repository has been used in
 
-which can be found in the dir about 'shuffle_SE' and 'shuffle_SK'
+[An Improved Image Classification Method for Cervical Precancerous Lesions Based on ShuffleNet](https://www.hindawi.com/journals/cin/2022/9675628/)
 
-the main directory build as
-> proto_1_vggnet
-> 
-> proto_2_googlenet
-> 
-> proto_3_resnet
-> 
-> proto_4_densenet
-> 
-> proto_5_mobilenet
-> 
-> remix_1_shufflenet
-> 
-> shuffle_SE
-> 
-> shuffle_SK
-> 
-> > model.py
-> >
-> > predict.py
-> >
-> > train.py
+# But I'm not among the authors of this paper.
 
-The difference between these Net comes in 'model.py'
+So, no matter where you come from visit to this repository , please don't try to get a reference from me. 
+The previous version of the repository was just a pile of useless code.
 
-Additionally, we backup the train info in the '/draw_plot', Hope these a bit help you understand the code.
+**If you unfortunately read this paper and try to find some references form it, unfortunately, all the content of this article is rubbish.**
 
-Cervical cancer screening dataset used for classification located in '\data\cancer_data', which split into train and val.
+The data in this article is said to be from Affiliated Hospital of Hebei University, but actually from [Chinese Women's Cervical Health Protection Project](http://www.zgfngjjkbzgc.com/) Obtained through mobile phone photos and not even obtained by browser F12. This spam paper even not actually use one pathological data from Affiliated Hospital of Hebei University.
 
-We fetch 10 example cervical cancer image in each categories(Although these pictures not enough to support training).
+And I don't know why 1080 is written as 2080TI. I am sorry for Artificial Intelligence Medical Engineering training Center of Hebei University is really too low
 
-If you need a complete cervical cancer dataset or make a deeper academic exchanges, please send an email to AluminiumOxide@163.com.
+### For other exchanges, please kindly greet the first authors list her info as below but me, I'm only a zero contributor who only responsible for further processing of classified data, model adjustments.
 
+| info          | Description                                                  |
+| ------------- | ------------------------------------------------------------ |
+| Name          | 房姗                                                         |
+| College       | School of quality and Technical Supervision, Hebei University |
+| Profession    | Electronic information                                       |
+| School number | 20207020044                                                  |
+| Email         | rencontrer_98@163.com                                        |
+
+In order to save you some face, I won't disclose other info may open box.
+
+## I believe she will be able to provide a more professional explanation than me for the implementation of this article! 
+
+## Please do not doubt that there is no conflict of interest at the end of the article ! 
+
+# Idiotic Ass Shan Fang !!!
+
+# Idiotic Ass Shan Fang !!!
+
+# Idiotic Ass Shan Fang !!!
